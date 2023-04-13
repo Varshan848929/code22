@@ -1,0 +1,136 @@
+function validateEventDate1(eventDate) //TYPE YOUR JS CODE HERE 
+{ 
+ eventDate=document.getElementById("eventDate").value; 
+ var currentDate=new Date(); 
+ if(eventDate<currentDate.getDate()) 
+ return false; 
+ else 
+ return true; 
+ if(false) 
+ { 
+ window.alert("Event Date can't be today or before!!"); 
+ } 
+} 
+function validateEventDate2(eventDate) 
+{ 
+ eventDate=document.getElementById("eventDate").value; 
+ var currentDate=new Date(); 
+ if(currentDate.getDate()<eventDate) 
+ return false; 
+ else 
+ return true; 
+ if(false) 
+ { 
+ window.alert("Event date cannot be just 1 or 2 days after current date!!"); 
+ } 
+} 
+function validateGuestCount(gcount) 
+{ 
+ gcount=document.getElementById("gcount").value;
+ if(gcount<50)
+return false; 
+ else 
+ return true; 
+ if(false) 
+ { 
+ window.alert("Guest count must be minimum 50!!"); 
+ } 
+} 
+function calculateBillAmount(gcount,cname,email) 
+{ 
+ gcount=document.getElementById("gcount").value;
+ cname=document.getElementById("myName").value; 
+ email=document.getElementById("email").value; 
+ var billAmt; 
+ if(document.getElementById("wedding").checked===true && 
+document.getElementById("veg").checked===true) 
+ { 
+ billAmt=gcount*400; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("wedding").checked===true && 
+document.getElementById("nonveg").checked===true) 
+ { 
+ billAmt=gcount*500; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("wedding").checked===true && 
+document.getElementById("veg").checked===true && 
+document.getElementById("nonveg").checked===true) 
+ { 
+ billAmt=gcount*650; 
+ return billAmt; 
+ }
+else if(document.getElementById("wedding").checked===true && 
+document.getElementById("veg").checked===false && 
+document.getElementById("nonveg").checked===false) 
+ { 
+ billAmt +=10000; 
+ return billAmtbillAmt; 
+ } 
+ else if(document.getElementById("naming").checked===true && 
+document.getElementById("veg").checked===true) 
+ { 
+ billAmt=gcount*350; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("naming").checked===true && 
+document.getElementById("nonveg").checked===true) 
+ { 
+ billAmtbillAmt=gcount*400; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("naming").checked===true && 
+document.getElementById("veg").checked===true && 
+document.getElementById("nonveg").checked===true) 
+ { 
+ billAmt=gcount*500; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("naming").checked===true && 
+document.getElementById("veg").checked===false && 
+document.getElementById("nonveg").checked===false) 
+ { 
+ billAmt +=10000; 
+ return billAmt; 
+ }
+else if(document.getElementById("birthday").checked===true && 
+document.getElementById("veg").checked===true) 
+ { 
+ billAmt=(gcount*250); 
+ return billAmt; 
+ } 
+ else if(document.getElementById("birthday").checked===true && 
+document.getElementById("nonveg").checked===true) 
+ { 
+ billAmt=gcount*300; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("birthday").checked===true && 
+document.getElementById("veg").checked===true && 
+document.getElementById("nonveg").checked===true) 
+ { 
+ billAmt=gcount*400; 
+ return billAmt; 
+ } 
+ else if(document.getElementById("birthday").checked===true && 
+document.getElementById("veg").checked===false && 
+document.getElementById("nonveg").checked===false) 
+ { 
+ billAmt +=10000; 
+ return billAmt; 
+ } 
+ billAmt=billAmt+(billAmt*0.18); 
+ 
+ document.getElementById("result").innerHTML="Dear "+cname+",</br>"+"We confirm your 
+Order.The amount is Rs:"+billAmt+"</br>"+"Further details will be mailed on "+"</br>"+email; 
+ 
+} 
+function estimateAmount() 
+{ 
+validateEventDate1(eventDate); 
+ validateEventDate2(eventDate); 
+ validateGuestCount; 
+ calculateBillAmount(gcount,cname,email); 
+ 
+}
