@@ -1,0 +1,58 @@
+DreamWedding dw = new DreamWedding();
+        Console.Write("Enter the Package Type (FSW/DW/D): ");
+        string packageType = Console.ReadLine();
+
+        // Validate the package type
+        if (!dw.ValidatePackage(packageType))
+        {
+            Console.WriteLine("No Such Wedding package available");
+            return;
+        }
+
+        Console.WriteLine("Enter the list of events:");
+        List<string> eventList = new List<string>();
+        while (true)
+        {
+            string input = Console.ReadLine();
+            if (input == "") break;
+            eventList.Add(input);
+        }
+
+        // Validate the event list
+        if (!dw.ValidateEventList(packageType, eventList))
+        {
+            Console.WriteLine("Not all events are valid for this package");
+            return;
+        }
+
+        List<string> eventsCost = new List<string>();
+        foreach (string ev in eventList)
+        {
+            Console.Write($"Enter the cost of {ev}: ");
+            double cost = double.Parse(Console.ReadLine());
+
+            // Validate the event cost
+            if (!dw.ValidateEventCost(cost))
+            {
+                Console.WriteLine("Low Cost Amount...Restart the Application");
+                return;
+            }
+
+            eventsCost.Add($"{ev}:{cost}");
+        }
+
+        // Create the wedding dictionary
+        Dictionary<string, double> wedding = dw.CreateWedding(packageType, eventsCost);
+
+        // Print the wedding dictionary
+        Console.WriteLine("\nEvent Name               Cost");
+        foreach (KeyValuePair<string, double> kvp in wedding)
+        {
+            Console.WriteLine($"({kvp.Key,-20}) {kvp.Value:C}");
+        }
+
+        // Print the total cost of the wedding
+        double totalCost = dw.GetTotalCost(wedding);
+        Console.WriteLine("\nTotal Cost: {0:C}", totalCost);
+    }
+}
