@@ -1,0 +1,113 @@
+Scenario:
+BonBon Publishing Company
+BonBonPublishing is an advertisement company, it  does online and mobile publishing of advertisements for their clients. They charge depending upon the advertisement category chosen by the client, priority and the no_of_days for which the advertisement needs to be published.
+
+Important note: Set all the values via constructor.
+
+Create an abstract public class Advertisement with the following private field and public properties:
+
+//Fields            
+
+Data Type
+
+Variable Name
+
+int
+
+advertisementId
+
+String
+
+priority
+
+int
+
+no_of_days
+
+String
+
+clientName
+
+ 
+
+//Properties
+
+Data Type
+
+Variable Name
+
+int
+
+AdvertisementId
+
+String
+
+Priority
+
+int
+
+No_of_days
+
+String
+
+ClientName
+
+ 
+
+//Methods
+
+Class
+
+Attributes/Methods
+
+Rules/Responsibilites
+
+Advertisement
+
+public abstract float CalculateAdvertisementCharge(int baseCost,String Priority,int No_of_Days)
+
+This method is used to calculate the Advertisement charges for various types.
+
+Also create the following classes and establish the relationship with Advertisement.
+
+Create a public class VideoAdvertisement with the following private attribute
+
+                   int duration      (duration in minutes)
+
+Create a public class ImageAdvertisement with the following private attribute
+
+                   int inches
+
+Create a public class TextAdvertisement with the following private attribute
+
+                   int no_of_characters
+
+In the method CalculateAdvertisementCharge, the argument baseCost will represent either price ( per minute or price per character or price per inch) depending on the advertisement category chosen by the client.
+
+Note:  advertisementCost = baseCost  * (duration or inches or no_of_characters)  * no_of_days
+
+While calculating the Advertisement charge, booster cost needs to be added, depending on priority.
+
+If priority is high, Booster cost is 10% of Advertisement cost.
+
+If priority is medium, Booster cost is 7% of Advertisement cost.
+
+There is no booster cost for low priority advertisement.
+
+If the client chooses high priority, network congestion will be avoided and Rs.1000/- will be charged as service cost in addition to advertisementCost  and booster cost.
+
+If the client chooses medium priority, network congestion will be minimized and Rs.700/- will be charged as service cost in addition to advertisementCost  and booster cost.
+
+If the client chooses low priority, network congestion may be avoided and Rs.200/- will be charged as service cost in addition to advertisementCost
+
+Example:
+
+Consider if  advertisement type is video, priority is high, number of days is 5, duration is 10 minutes and base cost is 100 then calculation will be as follows,
+
+advertisementCost = 100  10  5 = 5000
+
+                                      = 5000 + ( 5000 * 10 ) / 100 = 5000 + 500 = 5500
+
+advertisementCost = 5500 + 1000 = 6500.0
+
+Create a public class Program and write the Main method to test the application.
