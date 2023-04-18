@@ -1,0 +1,116 @@
+using System;
+using System.Collections.Generic;
+
+class DreamWedding
+{
+    private Dictionary<string, List<string>> eventLists = new Dictionary<string, List<string>>()
+    {
+        {"FSW", new List<string>{"Wedding Venues", "Vendor Management", "Wedding Invites", "Photography & Videography", "Bridal Styling"}},
+        {"DW", new List<string>{"Wedding Venues", "Transportation", "Bridal Styling"}},
+        {"D", new List<string>{"Floor Design", "Lighting Design", "Furniture Linen"}}
+    };
+
+    public bool ValidatePackage(string packageType)
+    {
+        if (eventLists.ContainsKey(packageType.ToUpper()))
+        {
+            return true;
+        }
+        Console.WriteLine("No such wedding package available");
+        return false;
+    }
+
+    public bool ValidateEventList(string packageType, List<string> events)
+    {
+        if (!eventLists[packageType.ToUpper()].ContainsAll(events, StringComparer.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("Not all events are valid for this package");
+            return false;
+        }
+        return true;
+    }
+
+    public bool ValidateEventCost(double eventCost)
+    {
+        if (eventCost < 5000)
+        {
+            Console.WriteLine("Low Cost Amount...Restart the Application");
+            return false;
+        }
+        return true;
+    }
+
+    public Dictionary<string, double> CreateWedding(string packageType, List<string> eventsCost)
+    {
+        var wedding = new Dictionary<string, double>();
+        foreach (var eventCost in eventsCost)
+        {
+            var eventCostList = eventCost.Split(':');
+            var eventName = eventCostList[0].Trim();
+            var cost = Convert.ToDouble(eventCostList[1].Trim());
+
+            if (ValidateEventList(packageType, new List<string> { eventName }) && ValidateEventCost(cost))
+            {
+                wedding[eventName] = cost;
+            }
+            else
+            {
+                Console.WriteLine("Validation failed for event: {0} with cost: {1}", eventName, cost);
+            }
+        }
+        return wedding;
+    }
+
+    public double GetTotalCost(Dictionary<string, double> wedding)
+    {
+        double totalCost = 0;
+        foreach (var item in wedding)
+        {
+            totalCost += item.Value;
+        }
+        return totalCost;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        DreamWedding dreamWedding = new DreamWedding();
+        Console.WriteLine("Enter Package Type (FSW, DW, D):");
+        string packageType = Console.ReadLine();
+
+        if (!dreamWedding.ValidatePackage(packageType))
+        {
+            return;
+        }
+
+        Console.WriteLine("Enter events and their cost in format (Event Name: Cost)");
+        List<string> eventsCost = new List<string>();
+        while (true)
+        {
+            string eventCost = Console.ReadLine();
+            if (string.IsNullOrEmpty(eventCost))
+            {
+                break;
+            }
+            eventsCost.Add(eventCost);
+        }
+
+        if (!dreamWedding.ValidateEventList(packageType, eventsCost))
+        {
+            return;
+        }
+
+        Dictionary<string, double> wedding = dreamWedding.CreateWedding(packageType, eventsCost);
+        Console.WriteLine();
+        Console.WriteLine("Event Name               Cost");
+        Console.WriteLine("--------------------------------------");
+        foreach (var item in wedding)
+        {
+            Console.WriteLine("{0,-20}{1}", item.Key, item.Value);
+        }
+        Console.WriteLine("--------------------------------------");
+        Console.WriteLine("Total Cost:              {0}", dreamWedding.GetTotalCost(wedding));
+    }
+}
