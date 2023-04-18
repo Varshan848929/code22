@@ -1,0 +1,151 @@
+using System;
+
+public abstract class Advertisement
+{
+    private int advertisementId;
+    private string priority;
+    private int no_of_days;
+    private string clientName;
+
+    public Advertisement(int id, string priority, int days, string name)
+    {
+        this.advertisementId = id;
+        this.priority = priority;
+        this.no_of_days = days;
+        this.clientName = name;
+    }
+
+    public int AdvertisementId
+    {
+        get { return advertisementId; }
+    }
+
+    public string Priority
+    {
+        get { return priority; }
+    }
+
+    public int No_of_days
+    {
+        get { return no_of_days; }
+    }
+
+    public string ClientName
+    {
+        get { return clientName; }
+    }
+
+    public abstract float CalculateAdvertisementCharge(int baseCost);
+}
+
+public class VideoAdvertisement : Advertisement
+{
+    private int duration;
+
+    public VideoAdvertisement(int id, string priority, int days, string name, int duration)
+        : base(id, priority, days, name)
+    {
+        this.duration = duration;
+    }
+
+    public override float CalculateAdvertisementCharge(int baseCost)
+    {
+        float advertisementCost = baseCost * duration * No_of_days;
+        float boosterCost = 0;
+
+        if (Priority == "high")
+        {
+            boosterCost = advertisementCost * 0.1f;
+        }
+        else if (Priority == "medium")
+        {
+            boosterCost = advertisementCost * 0.07f;
+        }
+
+        float serviceCost = 0;
+
+        if (Priority == "high")
+        {
+            serviceCost = 1000;
+        }
+        else if (Priority == "medium")
+        {
+            serviceCost = 700;
+        }
+
+        return advertisementCost + boosterCost + serviceCost;
+    }
+}
+
+public class ImageAdvertisement : Advertisement
+{
+    private int inches;
+
+    public ImageAdvertisement(int id, string priority, int days, string name, int inches)
+        : base(id, priority, days, name)
+    {
+        this.inches = inches;
+    }
+
+    public override float CalculateAdvertisementCharge(int baseCost)
+    {
+        float advertisementCost = baseCost * inches * No_of_days;
+        float boosterCost = 0;
+
+        if (Priority == "high")
+        {
+            boosterCost = advertisementCost * 0.1f;
+        }
+        else if (Priority == "medium")
+        {
+            boosterCost = advertisementCost * 0.07f;
+        }
+
+        float serviceCost = 0;
+
+        if (Priority == "high")
+        {
+            serviceCost = 1000;
+        }
+        else if (Priority == "medium")
+        {
+            serviceCost = 700;
+        }
+
+        return advertisementCost + boosterCost + serviceCost;
+    }
+}
+
+public class TextAdvertisement : Advertisement
+{
+    private int no_of_characters;
+
+    public TextAdvertisement(int id, string priority, int days, string name, int characters)
+        : base(id, priority, days, name)
+    {
+        this.no_of_characters = characters;
+    }
+
+    public override float CalculateAdvertisementCharge(int baseCost)
+    {
+        float advertisementCost = baseCost * no_of_characters * No_of_days;
+        float boosterCost = 0;
+
+        if (Priority == "high")
+        {
+            boosterCost = advertisementCost * 0.1f;
+        }
+        else if (Priority == "medium")
+        {
+            boosterCost = advertisementCost * 0.07f;
+        }
+
+        float serviceCost = 0;
+
+        if (Priority == "high")
+        {
+            serviceCost = 1000;
+        }
+        else if (Priority == "medium")
+        {
+           
