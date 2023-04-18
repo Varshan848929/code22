@@ -1,0 +1,151 @@
+using System;
+using System.Collections.Generic;
+
+class DreamWedding
+{
+    private Dictionary<string, double> eventCostDict;
+    private const double MIN_EVENT_COST = 5000.0;
+
+    public DreamWedding()
+    {
+        eventCostDict = new Dictionary<string, double>();
+    }
+
+    public bool ValidatePackage(string packageType)
+    {
+        bool isValid = false;
+
+        switch (packageType.ToUpper())
+        {
+            case "FSW":
+            case "DW":
+            case "D":
+                isValid = true;
+                break;
+            default:
+                Console.WriteLine("No Such Wedding package available");
+                break;
+        }
+
+        return isValid;
+    }
+
+    public bool ValidateEventList(string packageType, List<string> events)
+    {
+        bool isValid = true;
+
+        foreach (string eventName in events)
+        {
+            if (!IsValidEvent(packageType.ToUpper(), eventName.ToUpper()))
+            {
+                Console.WriteLine("Not all events are valid for this package");
+                isValid = false;
+                break;
+            }
+        }
+
+        return isValid;
+    }
+
+    public bool ValidateEventCost(double eventCost)
+    {
+        bool isValid = true;
+
+        if (eventCost < MIN_EVENT_COST)
+        {
+            Console.WriteLine("Low Cost Amount...Restart the Application");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    public Dictionary<string, double> CreateWedding(string packageType, List<string> eventsCost)
+    {
+        foreach (string eventCost in eventsCost)
+        {
+            string[] parts = eventCost.Split(':');
+            string eventName = parts[0].Trim();
+            double eventCostValue = double.Parse(parts[1].Trim());
+            if (!ValidateEventList(packageType, new List<string> { eventName }))
+            {
+                return null;
+            }
+            if (!ValidateEventCost(eventCostValue))
+            {
+                return null;
+            }
+            eventCostDict[eventName] = eventCostValue;
+        }
+
+        return eventCostDict;
+    }
+
+    public double GetTotalCost(Dictionary<string, double> wedding)
+    {
+        double totalCost = 0;
+
+        foreach (KeyValuePair<string, double> eventCost in wedding)
+        {
+            totalCost += eventCost.Value;
+        }
+
+        return totalCost;
+    }
+
+    private bool IsValidEvent(string packageType, string eventName)
+    {
+        switch (packageType)
+        {
+            case "FSW":
+                return IsValidFSWEvent(eventName);
+            case "DW":
+                return IsValidDWEvent(eventName);
+            case "D":
+                return IsValidDEvent(eventName);
+            default:
+                return false;
+        }
+    }
+
+    private bool IsValidFSWEvent(string eventName)
+    {
+        switch (eventName)
+        {
+            case "WEDDING VENUES":
+            case "VENDOR MANAGEMENT":
+            case "WEDDING INVITES":
+            case "PHOTOGRAPHY & VIDEOGRAPHY":
+            case "BRIDAL STYLING":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private bool IsValidDWEvent(string eventName)
+    {
+        switch (eventName)
+        {
+            case "WEDDING VENUES":
+            case "TRANSPORTATION":
+            case "BRIDAL STYLING":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private bool IsValidDEvent(string eventName)
+    {
+        switch (eventName)
+        {
+            case "FLOOR DESIGN":
+            case "LIGHTING DESIGN":
+            case "FURNITURE LINEN":
+                return true;
+            default:
+                return false;
+        }
+    }
+}
