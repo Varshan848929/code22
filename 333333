@@ -69,3 +69,4 @@ The next lines denote event details.
 Output Format
 
 The output will contain the key-value pair information from dictionary in which event name is the key and cost is the value. While printing output there should be 20 spaces gap between event name and cost. [Use the format "{0,-20}{1}", value1,value2)] while printing the output to the console.
+y
