@@ -1,0 +1,71 @@
+Problem Statement 
+
+Conto Wedding Services is a professional wedding planner who helps their clients to plan their wedding as a 'Dream Wedding'. There are several events to be planned for the Dream Wedding. There are some packages available for the wedding given by the Conto Wedding Services.
+
+Full-Service Wedding: Full-Service Wedding is known as all-inclusive wedding planner. It includes Hiring vendors, guest list, invitations, floor plans, etc.
+
+Destination Wedding: Destination Wedding is similar to full-service wedding which also includes scout the perfect location, support guest with travel and accommodations.
+
+Designer: Designers are little different kind of package from the wedding planners. It helps to handle floor plan and other wedding aesthetic like place cards, color palette etc.
+
+You are tasked to create a CUI based application using C# to help the Conto Wedding Services for effectively implementing wedding planning for their clients.
+
+Write a program that calculates the total cost for the clients based on the list of events they have asked for specific wedding package.
+
+The list of events for specific package is given below:
+
+1.    FSW- Wedding Venues, Vendor Management, Wedding Invites, Photography & Videography, Bridal Styling
+
+2.    DW- Wedding Venues, Transportation, Bridal Styling.
+
+3.    D- Floor Design, Lighting design, Furniture Linen.
+
+Note:
+
+Use above list of events for each package to validate the events for specific wedding package. (Case insensitive for all values)
+
+ 
+
+Component Specification
+
+Create a class called DreamWedding with the below methods:
+
+Method Name
+
+Description
+
+public bool ValidatePackage(string packageType )
+
+This method validates if the package type is either of the three types (FSW, DW, D). If it returns false, print a message "No Such Wedding package available" and terminate the application.
+
+public bool ValidateEventList (string packageType,List<string> events)
+
+This method validates whether the list of events for the given package type is valid or not. Check in above page for list of events for each package. If not valid return false, print "Not all events are valid for this package"  and terminate the application
+
+public bool ValidateEventCost(double eventCost)
+
+This method validates whether the cost is >= 5000. If it returns false, print a message "Low Cost Amount...Restart the Application" and terminate the application.
+
+public Dictionary<string, double> CreateWedding(string packageType,List<string> eventsCost)
+
+This method will split each string from the list, invoke ValidateEventList and ValidateEventCost methods   and store the event and cost for the wedding in the form of dictionary and returns the dictionary
+
+Public double GetTotalCost(Dictionary<string, double> wedding)
+
+This method will return the total cost of DreamWedding by adding the cost of the events from the dictionary.
+
+ 
+
+Create a class called Program with Main method to test your application.
+
+Input Format
+
+First line is a string that denotes the Package type.
+
+The next lines denote event details.
+
+ 
+
+Output Format
+
+The output will contain the key-value pair information from dictionary in which event name is the key and cost is the value. While printing output there should be 20 spaces gap between event name and cost. [Use the format "{0,-20}{1}", value1,value2)] while printing the output to the console.
